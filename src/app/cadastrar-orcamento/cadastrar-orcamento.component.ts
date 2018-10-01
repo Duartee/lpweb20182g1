@@ -15,6 +15,7 @@ export class CadastrarOrcamentoComponent implements OnInit {
   mobilia_largura: Number;
   mobilia_altura: Number;
   mobilia_profundidade: Number;
+  mobilia_id: Number;
   mobilias = [];
   mostrar_mensagem = false;
   total_orcamento = 0.0;
@@ -31,7 +32,8 @@ export class CadastrarOrcamentoComponent implements OnInit {
       pintura: this.mobilia_pintura,
       largura: this.mobilia_largura,
       altura: this.mobilia_altura,
-      profundidade: this.mobilia_profundidade
+      profundidade: this.mobilia_profundidade,
+      id: this.mobilias.length + 1
     });
     this.mobilia_tipo = null;
     this.mobilia_puxador = null;
@@ -39,6 +41,15 @@ export class CadastrarOrcamentoComponent implements OnInit {
     this.mobilia_largura = null;
     this.mobilia_altura = null;
     this.mobilia_profundidade = null;
+    this.mobilia_id = null;
+  }
+  removeMobilia(mobilia_id) {
+    for (let mobilia of this.mobilias) {
+         if (mobilia.id === mobilia_id) {
+          this.mobilias.splice(mobilia_id - 1, 1);
+         }
+       }
+
   }
 
   salvar() {

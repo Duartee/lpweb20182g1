@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Local } from 'protractor/built/driverProviders';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,18 @@ export class OrcamentosService {
   }];
   constructor() { }
   salvar(orcamento) {
-    orcamento.id = this.orcamentos.length + 1;
+    // orcamento.id = this.orcamentos.length + 1;
+    // localStorage.setItem('LastIndex', orcamento.id);
+    let LastIndex = localStorage.getItem('LastIndex');
+    if (LastIndex != null) {
+      orcamento.id = Number.parseInt(LastIndex) + 1;
+      localStorage.setItem('LastIndex', orcamento.id);
+    } else {
+    orcamento.id = 0;
+    localStorage.setItem('LastIndex', orcamento.id);
+    }
+    let j = JSON.stringify(orcamento);
+    localStorage.setItem(String(orcamento.id), j);
     this.orcamentos.push(orcamento);
   }
   calcular(orcamento) {
@@ -64,12 +76,14 @@ export class OrcamentosService {
     return orcamento.custo_total;
   }
   encontrar(id) {
-    // return this.orcamentos.find(orcamento => orcamento.id === id);
-    for (let orcamento of this.orcamentos) {
-      if (orcamento.id === id) {
-        return orcamento;
-      }
-    }
+    let j = localStorage.getItem(String(id));
+    let orcamento = JSON.parse(j);
+    return orcamento;
+   // for (let orcamento of this.orcamentos) {
+   //   if (orcamento.id === id) {
+   //     return orcamento;
+   //   }
+   // }
     return null;
   }
 }

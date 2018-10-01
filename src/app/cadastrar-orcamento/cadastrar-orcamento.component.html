@@ -52,8 +52,9 @@
   <h3>Peças de mobília já adicionadas</h3>
   <hr>
   <ul>
-    <li *ngFor="let mobilia of mobilias">
+    <li *ngFor="let mobilia of mobilias; let i = index">
       {{mobilia.tipo}} - {{mobilia.largura}}cm
+    <button type="button" (click)="removeMobilia(mobilia.id)"  >Remover</button>
     </li>
   </ul>
   <h3>Total do orçamento</h3>
